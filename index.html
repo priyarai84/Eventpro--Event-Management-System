@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<!--
+  ================================================
+  EventPro - Event Management Website
+  Project  : College Assignment - Web Development
+  Developer: Priya Rai
+  Email    : priyarai0804@gmail.com
+  Phone    : 9129931077
+  ================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EventPro — Event Management</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     SPLASH SCREEN
+════════════════════════════════════════════════ -->
+<div class="splash" id="splash">
+  <img src="https://cdn-icons-png.flaticon.com/512/2920/2920222.png" alt="EventPro Logo">
+  <h1>EventPro</h1>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TOP INFO BAR
+════════════════════════════════════════════════ -->
+<div class="top-info">
+  <div>📍 Greater Noida</div>
+  <div>📞 9129931077</div>
+  <div>✉️ priyarai0804@gmail.com</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════════════ -->
+<div class="navbar">
+  <h2 onclick="showSection('home')">EventPro</h2>
+
+  <div class="nav-links">
+    <div id="nav-home"    class="active" onclick="showSection('home')">Home</div>
+    <div id="nav-about"   onclick="showSection('about')">About</div>
+    <div id="nav-events"  onclick="showSection('events')">Events</div>
+    <div id="nav-gallery" onclick="showSection('gallery')">Gallery</div>
+    <div id="nav-contact" onclick="showSection('contact')">Contact</div>
+  </div>
+
+  <!-- Login button (shown when logged out) -->
+  <button class="login-btn" id="loginNavBtn" onclick="openAuth('login')">Login</button>
+
+  <!-- User dropdown (shown when logged in) -->
+  <div class="user-menu" id="userMenu">
+    <button class="user-pill" onclick="toggleDropdown()">
+      <div class="user-avatar" id="userAvatar">P</div>
+      <span id="userNameShort">Priya</span>
+      <span class="arrow">&#9660;</span>
+    </button>
+    <div class="dropdown">
+      <div class="dropdown-header">
+        <div class="d-name" id="dropdownName">Priya Rai</div>
+        <div class="d-tag">EventPro Member</div>
+      </div>
+      <button class="dropdown-item" onclick="openMyBookings()">📋 My Bookings</button>
+      <button class="dropdown-item" onclick="openSettings()">⚙️ Settings</button>
+      <div class="dropdown-divider"></div>
+      <button class="dropdown-item logout" onclick="logout()">🚪 Logout</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     HOME PAGE
+════════════════════════════════════════════════ -->
+<div id="sec-home" class="page-section active">
+
+  <!-- Premium Hero -->
+  <div class="hero">
+    <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=1600')"></div>
+    <div class="slide"        style="background-image:url('https://images.unsplash.com/photo-1513151233558-d860c5398176?w=1600')"></div>
+    <div class="slide"        style="background-image:url('https://images.unsplash.com/photo-1556761175-4b46a572b786?w=1600')"></div>
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">✦ Greater Noida &amp; Delhi NCR · Est. March 2026</div>
+      <h1>We Create<br><span>Unforgettable</span><br>Moments</h1>
+      <p>From intimate birthdays to grand weddings and corporate events — every celebration deserves perfection.</p>
+      <div class="hero-actions">
+        <button class="hero-btn-primary" onclick="showSection('events')">Explore Events</button>
+        <button class="hero-btn-outline" onclick="showSection('contact')">Talk to Us</button>
+      </div>
+    </div>
+
+    <!-- Slide dots -->
+    <div class="hero-dots" id="heroDots">
+      <div class="hero-dot active" onclick="goToSlide(0)"></div>
+      <div class="hero-dot"        onclick="goToSlide(1)"></div>
+      <div class="hero-dot"        onclick="goToSlide(2)"></div>
+    </div>
+
+    <div class="hero-scroll">Scroll</div>
+  </div>
+
+  <!-- Stats Strip -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Event Types</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Cities Covered</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Dedicated Service</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">24/7</div>
+      <div class="stat-label">Client Support</div>
+    </div>
+  </div>
+
+  <!-- Event Cards -->
+  <div style="background:#fff;">
+    <div class="section-header">
+      <div class="section-eyebrow">✦ What We Offer</div>
+      <h2>Our Signature Events</h2>
+      <p>Choose from our curated event experiences, each crafted with meticulous attention to detail.</p>
+    </div>
+
+    <div class="cards">
+
+      <div class="card" onclick="openEventPage('Birthday')">
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600" alt="Birthday">
+          <div class="card-img-overlay"></div>
+          <div class="card-badge">Birthday</div>
+        </div>
+        <div class="card-body">
+          <h3>Birthday Celebrations</h3>
+          <p>Custom themes, balloon art, and magical setups that make every birthday truly special.</p>
+          <div class="card-tags">
+            <span class="card-tag">Balloon Decor</span>
+            <span class="card-tag">Theme Setup</span>
+            <span class="card-tag">Photography</span>
+          </div>
+          <div class="card-cta">
+            <span>Book Now</span>
+            <div class="card-arrow">→</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openEventPage('Wedding')">
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=600" alt="Wedding">
+          <div class="card-img-overlay"></div>
+          <div class="card-badge">Wedding</div>
+        </div>
+        <div class="card-body">
+          <h3>Wedding Ceremonies</h3>
+          <p>From the mandap to the reception — every detail crafted to make your day extraordinary.</p>
+          <div class="card-tags">
+            <span class="card-tag">Floral Mandap</span>
+            <span class="card-tag">Sangeet Night</span>
+            <span class="card-tag">Catering</span>
+          </div>
+          <div class="card-cta">
+            <span>Book Now</span>
+            <div class="card-arrow">→</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="openEventPage('Corporate')">
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600" alt="Corporate">
+          <div class="card-img-overlay"></div>
+          <div class="card-badge">Corporate</div>
+        </div>
+        <div class="card-body">
+          <h3>Corporate Events</h3>
+          <p>Professional setups for conferences, launches, and award ceremonies with flawless execution.</p>
+          <div class="card-tags">
+            <span class="card-tag">AV Setup</span>
+            <span class="card-tag">Stage Design</span>
+            <span class="card-tag">Gala Dinner</span>
+          </div>
+          <div class="card-cta">
+            <span>Book Now</span>
+            <div class="card-arrow">→</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Why Choose Us -->
+  <div class="why-section">
+    <div class="section-header">
+      <div class="section-eyebrow">✦ Why EventPro</div>
+      <h2>The EventPro Difference</h2>
+      <p>We don't just plan events — we craft experiences that stay in your memory forever.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-icon">🏆</span>
+        <h4>Award Winning</h4>
+        <p>Recognized as Greater Noida's best event company for 3 consecutive years.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">💎</span>
+        <h4>Premium Quality</h4>
+        <p>Only the finest vendors, decor, and setups — no compromise on quality, ever.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">⏱️</span>
+        <h4>Always On Time</h4>
+        <p>We respect your schedule. Every event starts and runs exactly as planned.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🤝</span>
+        <h4>Dedicated Support</h4>
+        <p>Your personal event manager is available 24/7 from booking to event day.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reviews -->
+  <div class="reviews">
+    <div class="section-eyebrow">✦ Client Love</div>
+    <h2>What Our Clients Say</h2>
+    <p class="reviews-sub">Real stories from real celebrations</p>
+    <div class="review-container">
+
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"EventPro turned our wedding into an absolute fairytale. Every detail was beyond perfect. The floral mandap took our breath away!"</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">AS</div>
+          <div>
+            <div class="reviewer-name">Anshika Singh</div>
+            <div class="reviewer-role">Wedding Client</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"My daughter's birthday party was magical! The balloon theme setup and photography was stunning. Highly recommend EventPro!"</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">SS</div>
+          <div>
+            <div class="reviewer-name">Sneha Sharma</div>
+            <div class="reviewer-role">Birthday Client</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="stars">★★★★☆</div>
+        <p>"Our product launch event was executed with absolute professionalism. The AV setup and stage design was world class. Will definitely book again."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">AV</div>
+          <div>
+            <div class="reviewer-name">Amit Verma</div>
+            <div class="reviewer-role">Corporate Client</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CTA Banner -->
+  <div class="cta-banner">
+    <h2>Ready to Plan Your Event?</h2>
+    <p>Let's create something extraordinary together. Get in touch today.</p>
+    <button class="hero-btn-primary" onclick="showSection('contact')">Start Planning →</button>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     ABOUT PAGE
+════════════════════════════════════════════════ -->
+<div id="sec-about" class="page-section">
+
+  <div class="about-hero">
+    <h1>About EventPro</h1>
+    <p>Greater Noida &amp; Delhi NCR's trusted event management company — crafting unforgettable experiences since March 2026.</p>
+  </div>
+
+  <!-- Our Story -->
+  <div class="about-story">
+    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=600" alt="Our Story">
+    <div class="about-story-text">
+      <h2>Our Story</h2>
+      <p>EventPro was founded in <strong>March 2026</strong> by <strong>Priya Rai</strong> with a clear vision — to make every event in Greater Noida and Delhi NCR truly special, regardless of budget or size.</p>
+      <br>
+      <p>We started with a simple belief: every occasion — whether a birthday, wedding, corporate event, or a small gathering — deserves professional planning and flawless execution. That belief drives everything we do.</p>
+      <br>
+      <p><strong>What we do:</strong> We handle end-to-end event management — from initial concept and decoration planning to vendor coordination, on-site management, and post-event cleanup. You enjoy the moment; we handle everything else.</p>
+      <br>
+      <p>Our services cover <strong>Birthday Party Planning</strong>, <strong>Wedding Ceremonies</strong>, <strong>Corporate Events</strong>, and <strong>Social Gatherings</strong> like anniversaries, baby showers, farewells, and kitty parties — all across <strong>Greater Noida and Delhi NCR</strong>.</p>
+    </div>
+  </div>
+
+  <!-- What We Do — Services Detail -->
+  <div class="mission-section">
+    <h2>What We Do</h2>
+    <div class="mission-grid">
+
+      <div class="mission-card">
+        <div class="icon">🎂</div>
+        <h3>Birthday Planning</h3>
+        <p>Custom theme setups, balloon decorations, cake arrangements, photography, and entertainment — we make every birthday magical for kids and adults alike.</p>
+      </div>
+
+      <div class="mission-card">
+        <div class="icon">💍</div>
+        <h3>Wedding Management</h3>
+        <p>Complete wedding planning from mehendi and sangeet to the grand reception — floral mandap, bridal entry, catering coordination, and decor all managed by us.</p>
+      </div>
+
+      <div class="mission-card">
+        <div class="icon">🏢</div>
+        <h3>Corporate Events</h3>
+        <p>Conferences, product launches, award nights, team building events, and gala dinners — professional AV setup, stage design, and seamless on-site execution.</p>
+      </div>
+
+      <div class="mission-card">
+        <div class="icon">🎉</div>
+        <h3>Social Gatherings</h3>
+        <p>Anniversaries, baby showers, farewell parties, kitty parties — we bring your vision to life with the right decor, entertainment, and a stress-free experience.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mission & Vision -->
+  <div class="achievements" style="background:#f8f7f4;">
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:#0b1a3c;margin-bottom:36px;">Mission &amp; Vision</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;max-width:900px;margin:0 auto;text-align:left;">
+
+      <div style="background:white;padding:28px;border-radius:14px;border:1px solid rgba(11,26,60,0.07);">
+        <div style="font-size:2rem;margin-bottom:12px;">🎯</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#0b1a3c;margin-bottom:8px;">Our Mission</h3>
+        <p style="font-size:13px;color:#888;line-height:1.7;">To deliver world-class event experiences across Greater Noida and Delhi NCR — making every moment memorable and every client stress-free.</p>
+      </div>
+
+      <div style="background:white;padding:28px;border-radius:14px;border:1px solid rgba(11,26,60,0.07);">
+        <div style="font-size:2rem;margin-bottom:12px;">🌟</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#0b1a3c;margin-bottom:8px;">Our Vision</h3>
+        <p style="font-size:13px;color:#888;line-height:1.7;">To become Delhi NCR's most trusted event company — where every event is a masterpiece and every client becomes a lifelong partner.</p>
+      </div>
+
+      <div style="background:white;padding:28px;border-radius:14px;border:1px solid rgba(11,26,60,0.07);">
+        <div style="font-size:2rem;margin-bottom:12px;">💎</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#0b1a3c;margin-bottom:8px;">Our Values</h3>
+        <p style="font-size:13px;color:#888;line-height:1.7;">Transparency, creativity, punctuality and quality — these four things are the foundation of everything we do at EventPro. No compromises.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Founder Note -->
+  <div style="background:#0b1a3c;padding:60px 80px;text-align:center;">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:rgba(255,255,255,0.9);line-height:1.7;max-width:700px;margin:0 auto;">
+      "Every celebration deserves perfection. At EventPro, we bring your vision to life — so you can be fully present in your most special moments."
+    </p>
+    <div style="margin-top:24px;">
+      <div style="font-size:14px;font-weight:600;color:#d4af37;letter-spacing:1px;">— Priya Rai</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:4px;letter-spacing:2px;text-transform:uppercase;">Founder, EventPro · March 2026</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     EVENTS PAGE
+════════════════════════════════════════════════ -->
+<div id="sec-events" class="page-section">
+
+  <div class="events-hero">
+    <h1>Our Events</h1>
+    <p>Perfect planning for every occasion — choose and book right now</p>
+  </div>
+
+  <div class="events-grid">
+
+    <!-- Birthday -->
+    <div class="event-card">
+      <div class="event-card-img">
+        <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600" alt="Birthday">
+        <div class="event-card-badge">🎂 Birthday</div>
+      </div>
+      <div class="event-card-body">
+        <h3>Birthday Celebrations</h3>
+        <p>From kids to adults — we turn every birthday into an unforgettable party with custom themes and perfect setups.</p>
+        <div class="event-card-features">
+          <span class="feat-tag">Balloon Decor</span>
+          <span class="feat-tag">Theme Setup</span>
+          <span class="feat-tag">Cake Arrangement</span>
+          <span class="feat-tag">Photography</span>
+        </div>
+        <button class="event-card-btn" onclick="openEventPage('Birthday')">Book Birthday Event →</button>
+      </div>
+    </div>
+
+    <!-- Wedding -->
+    <div class="event-card">
+      <div class="event-card-img">
+        <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?w=600" alt="Wedding">
+        <div class="event-card-badge">💍 Wedding</div>
+      </div>
+      <div class="event-card-body">
+        <h3>Wedding Ceremonies</h3>
+        <p>From the mandap to the reception — we handle every detail of your special day so you can enjoy every moment.</p>
+        <div class="event-card-features">
+          <span class="feat-tag">Floral Mandap</span>
+          <span class="feat-tag">Sangeet Night</span>
+          <span class="feat-tag">Bridal Entry</span>
+          <span class="feat-tag">Catering</span>
+        </div>
+        <button class="event-card-btn" onclick="openEventPage('Wedding')">Book Wedding Event →</button>
+      </div>
+    </div>
+
+    <!-- Corporate -->
+    <div class="event-card">
+      <div class="event-card-img">
+        <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600" alt="Corporate">
+        <div class="event-card-badge">🏢 Corporate</div>
+      </div>
+      <div class="event-card-body">
+        <h3>Corporate Events</h3>
+        <p>Conferences, product launches, award ceremonies — professional setup with flawless execution guaranteed.</p>
+        <div class="event-card-features">
+          <span class="feat-tag">AV Setup</span>
+          <span class="feat-tag">Stage Design</span>
+          <span class="feat-tag">Team Building</span>
+          <span class="feat-tag">Gala Dinner</span>
+        </div>
+        <button class="event-card-btn" onclick="openEventPage('Corporate')">Book Corporate Event →</button>
+      </div>
+    </div>
+
+    <!-- Social -->
+    <div class="event-card">
+      <div class="event-card-img">
+        <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600" alt="Social">
+        <div class="event-card-badge">🎉 Social</div>
+      </div>
+      <div class="event-card-body">
+        <h3>Social Gatherings</h3>
+        <p>Anniversaries, baby showers, farewells, kitty parties — we make every social occasion truly special.</p>
+        <div class="event-card-features">
+          <span class="feat-tag">Custom Theme</span>
+          <span class="feat-tag">Decoration</span>
+          <span class="feat-tag">Entertainment</span>
+        </div>
+        <button class="event-card-btn" onclick="openEventPage('Birthday')">Book Social Event →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     GALLERY PAGE
+════════════════════════════════════════════════ -->
+<div id="sec-gallery" class="page-section">
+
+  <div class="gallery-hero">
+    <h1>Our Gallery</h1>
+    <p>A glimpse of our work — beautiful setups crafted by Priya Rai & the EventPro team</p>
+  </div>
+
+  <div class="gallery-filters">
+    <button class="filter-btn active" onclick="filterGallery('All',this)">All Events</button>
+    <button class="filter-btn"        onclick="filterGallery('Birthday',this)">🎂 Birthday</button>
+    <button class="filter-btn"        onclick="filterGallery('Wedding',this)">💍 Wedding</button>
+    <button class="filter-btn"        onclick="filterGallery('Corporate',this)">🏢 Corporate</button>
+  </div>
+
+  <!-- Gallery grid is built by JavaScript -->
+  <div class="gallery-grid" id="galleryGrid"></div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     CONTACT PAGE
+════════════════════════════════════════════════ -->
+<div id="sec-contact" class="page-section">
+
+  <div class="contact-hero">
+    <h1>Contact Us</h1>
+    <p>Want to plan your event? Get in touch — we're always available!</p>
+  </div>
+
+  <div class="contact-body">
+
+    <!-- Contact Info (left) -->
+    <div class="contact-info">
+      <h2>Get In Touch</h2>
+
+      <div class="contact-info-item">
+        <div class="ci-icon">📍</div>
+        <div class="ci-text">
+          <h4>Address</h4>
+          <p>Plot 42, Sector 12<br>Greater Noida, UP - 201310</p>
+        </div>
+      </div>
+
+      <div class="contact-info-item">
+        <div class="ci-icon">📞</div>
+        <div class="ci-text">
+          <h4>Phone</h4>
+          <p>+91 9129931077<br>Mon–Sun: 9 AM – 8 PM</p>
+        </div>
+      </div>
+
+      <div class="contact-info-item">
+        <div class="ci-icon">✉️</div>
+        <div class="ci-text">
+          <h4>Email</h4>
+          <p>priyarai0804@gmail.com<br>Reply within 2 hours</p>
+        </div>
+      </div>
+
+      <a href="https://wa.me/919129931077" target="_blank" class="wa-btn">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="22" alt="WhatsApp">
+        Chat on WhatsApp
+      </a>
+
+      <div class="map-box">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.2233913121413!2d77.503!3d28.471!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDI4JzE1LjYiTiA3N8KwMzAnMTAuOCJF!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin"
+          allowfullscreen loading="lazy" title="EventPro Location">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- Contact Form (right) -->
+    <div class="contact-form-box">
+      <h2>Send a Message ✉️</h2>
+
+      <div class="cf-row">
+        <div class="cf-group">
+          <label>Your Name</label>
+          <input type="text" id="cfName" placeholder="Priya Rai">
+        </div>
+        <div class="cf-group">
+          <label>Phone Number</label>
+          <input type="tel" id="cfPhone" placeholder="9129931077">
+        </div>
+      </div>
+
+      <div class="cf-group">
+        <label>Email Address</label>
+        <input type="email" id="cfEmail" placeholder="priyarai0804@gmail.com">
+      </div>
+
+      <div class="cf-group">
+        <label>Event Type</label>
+        <select id="cfEvent">
+          <option value="">-- Select --</option>
+          <option>Birthday</option>
+          <option>Wedding</option>
+          <option>Corporate</option>
+          <option>Social Gathering</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="cf-group">
+        <label>Your Message</label>
+        <textarea id="cfMsg" placeholder="Tell us about your event — date, location, budget..."></textarea>
+      </div>
+
+      <button class="cf-submit" onclick="submitContact()">Send Message 🚀</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     EVENT DETAIL PAGE (Gallery + Booking)
+════════════════════════════════════════════════ -->
+<div class="event-page" id="eventPage">
+
+  <div class="event-page-header">
+    <button class="back-btn" onclick="closeEventPage()">←</button>
+    <div>
+      <h2 id="epTitle">Birthday Events</h2>
+      <p id="epSubtitle">Browse our work &amp; book your event</p>
+    </div>
+  </div>
+
+  <div class="section-title">📸 Our Gallery</div>
+  <div class="photo-grid" id="photoGrid"></div>
+
+  <!-- Shown when NOT logged in -->
+  <div id="loginRequiredBanner" class="login-required-banner" style="display:none;">
+    <h3>🔐 Login Required to Book</h3>
+    <p>Please login or create a free account to proceed with your booking.</p>
+    <button onclick="closeEventPage(); openAuth('login')">Login / Register Now</button>
+  </div>
+
+  <!-- Shown when logged in -->
+  <div id="bookingFormSection" class="booking-section" style="display:none;">
+
+    <!-- STEP 1: Booking Details -->
+    <div id="bookingStep1">
+      <h3>📋 Book Your Event</h3>
+      <p>Fill in the details below — Step 1 of 2</p>
+
+      <div class="pkg-btns">
+        <button class="pkg-btn" onclick="selectPkg(this,'Basic')">Basic</button>
+        <button class="pkg-btn" onclick="selectPkg(this,'Standard')">Standard</button>
+        <button class="pkg-btn" onclick="selectPkg(this,'Premium')">Premium</button>
+      </div>
+
+      <div class="booking-grid">
+        <div class="b-group">
+          <label>Full Name</label>
+          <input type="text" id="bName" placeholder="Priya Rai">
+        </div>
+        <div class="b-group">
+          <label>Phone Number</label>
+          <input type="tel" id="bPhone" placeholder="9129931077" maxlength="10">
+        </div>
+        <div class="b-group">
+          <label>Event Date</label>
+          <input type="date" id="bDate">
+        </div>
+        <div class="b-group">
+          <label>Total Budget (₹)</label>
+          <input type="number" id="bAmount" placeholder="e.g. 50000" oninput="updateAdvance()">
+        </div>
+        <div class="b-group full">
+          <label>Event Venue / Location</label>
+          <input type="text" id="bPlace" placeholder="Sector 12, Greater Noida">
+        </div>
+      </div>
+
+      <!-- Advance Amount Box -->
+      <div class="advance-info-box" id="advanceInfoBox" style="display:none;">
+        <div class="adv-row">
+          <span>Total Budget</span>
+          <strong id="advTotal">₹0</strong>
+        </div>
+        <div class="adv-row highlight">
+          <span>🔒 Advance to Pay (20%)</span>
+          <strong id="advAmount">₹0</strong>
+        </div>
+        <div class="adv-row muted">
+          <span>Remaining (on event day)</span>
+          <strong id="advRemaining">₹0</strong>
+        </div>
+      </div>
+
+      <input type="hidden" id="bEventType">
+      <input type="hidden" id="bPackage">
+      <button class="book-submit-btn" onclick="goToPayment()">Proceed to Payment →</button>
+    </div>
+
+    <!-- STEP 2: Advance Payment -->
+    <div id="bookingStep2" style="display:none;">
+      <div class="payment-header">
+        <button class="pay-back-btn" onclick="backToBooking()">← Back</button>
+        <div>
+          <h3>💳 Advance Payment</h3>
+          <p>Pay 20% advance to confirm your booking</p>
+        </div>
+      </div>
+
+      <!-- Amount to Pay -->
+      <div class="pay-amount-box">
+        <div class="pay-amount-label">Amount to Pay Now</div>
+        <div class="pay-amount-value" id="payAmountDisplay">₹0</div>
+        <div class="pay-amount-sub" id="payAmountSub">20% of ₹0 total budget</div>
+      </div>
+
+      <!-- Payment Tabs -->
+      <div class="pay-tabs">
+        <button class="pay-tab active" id="tabUpi" onclick="switchPayTab('upi')">📱 UPI</button>
+        <button class="pay-tab" id="tabBank" onclick="switchPayTab('bank')">🏦 Bank Transfer</button>
+      </div>
+
+      <!-- UPI Section -->
+      <div id="payUpi" class="pay-section">
+        <div class="upi-qr-box">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=priyarai0804@okicici&pn=EventPro&am=AMOUNT&cu=INR" id="qrImg" alt="UPI QR Code">
+          <p class="qr-label">Scan with any UPI app</p>
+          <p class="qr-apps">PhonePe · GPay · Paytm · BHIM</p>
+        </div>
+        <div class="upi-id-box">
+          <span class="upi-id-label">UPI ID</span>
+          <div class="upi-id-row">
+            <span class="upi-id-text" id="upiIdText">priyarai0804@okicici</span>
+            <button class="copy-btn" onclick="copyUpiId()">📋 Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bank Transfer Section -->
+      <div id="payBank" class="pay-section" style="display:none;">
+        <div class="bank-details">
+          <div class="bank-row"><span>Account Name</span><strong>Priya Rai</strong></div>
+          <div class="bank-row"><span>Account Number</span><strong>1234567890123</strong></div>
+          <div class="bank-row"><span>IFSC Code</span><strong>ICIC0001234</strong></div>
+          <div class="bank-row"><span>Bank Name</span><strong>ICICI Bank</strong></div>
+          <div class="bank-row"><span>Account Type</span><strong>Savings</strong></div>
+        </div>
+      </div>
+
+      <div class="pay-note">
+        ⚠️ After payment, enter your <strong>UPI Transaction ID</strong> or <strong>Reference Number</strong> below
+      </div>
+
+      <div class="b-group" style="margin:16px 0 0;">
+        <label>Transaction / Reference ID</label>
+        <input type="text" id="bTxnId" placeholder="e.g. 123456789012">
+      </div>
+
+      <button class="book-submit-btn" onclick="submitBooking()">✅ Confirm Booking</button>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     LIGHTBOX
+════════════════════════════════════════════════ -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightboxImg" src="" alt="Preview">
+</div>
+
+<!-- ══════════════════════════════════════════════
+     AUTH MODAL (Login / Register / Forgot)
+════════════════════════════════════════════════ -->
+<div class="auth-overlay" id="authOverlay" onclick="handleOverlayClick(event)">
+  <div class="auth-modal">
+
+    <div class="auth-header">
+      <div class="brand">EventPro</div>
+      <h2 id="authTitle">Welcome Back</h2>
+      <p id="authSubtitle">Sign in to manage your events</p>
+      <button class="auth-close" onclick="closeAuth()">✕</button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="auth-tabs" id="authTabs">
+      <div class="auth-tab active" id="tabLogin"    onclick="switchTab('login')">Login</div>
+      <div class="auth-tab"        id="tabRegister" onclick="switchTab('register')">Register</div>
+    </div>
+
+    <!-- Login Form -->
+    <div class="auth-body" id="loginBody">
+      <div class="input-group">
+        <label>Email or Phone</label>
+        <span class="icon">📧</span>
+        <input type="text" id="loginId" placeholder="priyarai0804@gmail.com or 9129931077">
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <span class="icon">🔒</span>
+        <input type="password" id="loginPass" placeholder="Enter your password">
+      </div>
+      <div class="forgot-link"><span onclick="showForgot()">Forgot Password?</span></div>
+      <button class="auth-btn" onclick="login()">Login to EventPro</button>
+    </div>
+
+    <!-- Register Form -->
+    <div class="auth-body" id="registerBody" style="display:none;">
+      <div class="input-row">
+        <div class="input-group">
+          <label>First Name</label>
+          <span class="icon">👤</span>
+          <input type="text" id="regFirst" placeholder="Priya">
+        </div>
+        <div class="input-group">
+          <label>Last Name</label>
+          <span class="icon" style="opacity:0">·</span>
+          <input type="text" id="regLast" placeholder="Rai">
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Email Address</label>
+        <span class="icon">📧</span>
+        <input type="email" id="regEmail" placeholder="priyarai0804@gmail.com">
+      </div>
+      <div class="input-group">
+        <label>Phone Number</label>
+        <span class="icon">📱</span>
+        <input type="tel" id="regPhone" placeholder="9129931077" maxlength="10">
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <span class="icon">🔒</span>
+        <input type="password" id="regPass" placeholder="Min. 6 characters">
+      </div>
+      <button class="auth-btn" onclick="register()">Create Account</button>
+    </div>
+
+    <!-- Forgot Password Panel -->
+    <div class="forgot-panel" id="forgotPanel">
+      <div class="back-link-forgot" onclick="showForgotBack()">← Back to Login</div>
+      <div class="input-group">
+        <label>Registered Email or Phone</label>
+        <span class="icon">📧</span>
+        <input type="text" id="forgotId" placeholder="email or phone number">
+      </div>
+      <div class="input-group">
+        <label>New Password</label>
+        <span class="icon">🔒</span>
+        <input type="password" id="newPass" placeholder="Enter new password">
+      </div>
+      <button class="auth-btn" onclick="resetPass()">Reset Password</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     SETTINGS MODAL
+════════════════════════════════════════════════ -->
+<div class="settings-overlay" id="settingsOverlay" onclick="handleSettingsClick(event)">
+  <div class="settings-modal">
+
+    <div class="settings-header">
+      <h2>⚙️ Account Settings</h2>
+      <p>Manage your profile and preferences</p>
+      <button class="settings-close" onclick="closeSettings()">✕</button>
+    </div>
+
+    <div class="settings-body">
+
+      <!-- Profile Info -->
+      <div class="settings-section">
+        <h3>👤 Profile Information</h3>
+        <div class="settings-row">
+          <div class="s-group">
+            <label>First Name</label>
+            <input type="text" id="sFirst" placeholder="Priya">
+          </div>
+          <div class="s-group">
+            <label>Last Name</label>
+            <input type="text" id="sLast" placeholder="Rai">
+          </div>
+        </div>
+        <div class="settings-row">
+          <div class="s-group">
+            <label>Email Address</label>
+            <input type="email" id="sEmail" placeholder="priyarai0804@gmail.com">
+          </div>
+          <div class="s-group">
+            <label>Phone Number</label>
+            <input type="tel" id="sPhone" placeholder="9129931077" maxlength="10">
+          </div>
+        </div>
+        <div class="s-group full">
+          <label>City / Location</label>
+          <input type="text" id="sCity" placeholder="Greater Noida, UP">
+        </div>
+        <button class="settings-save-btn" onclick="saveProfile()">💾 Save Profile</button>
+      </div>
+
+      <!-- Change Password -->
+      <div class="settings-section">
+        <h3>🔒 Change Password</h3>
+        <div class="settings-row">
+          <div class="s-group">
+            <label>Current Password</label>
+            <input type="password" id="sCurrPass" placeholder="Enter current password">
+          </div>
+          <div class="s-group">
+            <label>New Password</label>
+            <input type="password" id="sNewPass" placeholder="Min. 6 characters">
+          </div>
+        </div>
+        <div class="s-group full">
+          <label>Confirm New Password</label>
+          <input type="password" id="sConfPass" placeholder="Re-enter new password">
+        </div>
+        <button class="settings-save-btn" onclick="changePassword()">🔑 Update Password</button>
+      </div>
+
+      <!-- Notifications -->
+      <div class="settings-section">
+        <h3>🔔 Notification Preferences</h3>
+        <div class="settings-row">
+          <div class="s-group">
+            <label>Email Notifications</label>
+            <select id="sEmailNotif">
+              <option value="on">Enabled</option>
+              <option value="off">Disabled</option>
+            </select>
+          </div>
+          <div class="s-group">
+            <label>SMS Notifications</label>
+            <select id="sSmsNotif">
+              <option value="on">Enabled</option>
+              <option value="off">Disabled</option>
+            </select>
+          </div>
+        </div>
+        <button class="settings-save-btn" onclick="saveNotifications()">💾 Save Preferences</button>
+      </div>
+
+      <!-- Account Actions -->
+      <div class="settings-section">
+        <h3>⚠️ Account Actions</h3>
+        <button class="danger-btn" onclick="logout()">🚪 Logout from Account</button>
+        <button class="danger-btn" onclick="deleteAccount()">🗑️ Delete My Account</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MY BOOKINGS MODAL
+════════════════════════════════════════════════ -->
+<div class="settings-overlay" id="bookingsOverlay" onclick="handleBookingsClick(event)">
+  <div class="settings-modal">
+    <div class="settings-header">
+      <h2>📋 My Bookings</h2>
+      <p>All your event booking history</p>
+      <button class="settings-close" onclick="closeMyBookings()">✕</button>
+    </div>
+    <div class="settings-body">
+      <div id="bookingsContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     CANCEL BOOKING MODAL
+════════════════════════════════════════════════ -->
+<div class="settings-overlay" id="cancelOverlay" onclick="handleCancelClick(event)">
+  <div class="settings-modal" style="width:380px;">
+    <div class="settings-header" style="background:linear-gradient(135deg,#c0392b,#e74c3c);">
+      <h2>🚫 Cancel Booking</h2>
+      <p>This action cannot be undone</p>
+      <button class="settings-close" onclick="closeCancelModal()">✕</button>
+    </div>
+    <div class="settings-body">
+      <div class="cancel-info-box">
+        <p id="cancelBookingInfo"></p>
+      </div>
+      <p style="font-size:13px;color:#888;margin-bottom:20px;line-height:1.6;">
+        Are you sure you want to cancel this booking? If advance payment was made, refund will be processed within <strong>5–7 working days</strong>.
+      </p>
+      <input type="hidden" id="cancelBookingId">
+      <button class="danger-btn" style="margin-top:0;" onclick="confirmCancel()">🚫 Yes, Cancel Booking</button>
+      <button class="settings-save-btn" style="margin-top:10px;" onclick="closeCancelModal()">← Keep Booking</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     WHATSAPP FLOAT BUTTON
+════════════════════════════════════════════════ -->
+<a href="https://wa.me/919129931077" target="_blank" class="float-btn">
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+</a>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════════════════════════════════════
+     EXTERNAL JAVASCRIPT
+════════════════════════════════════════════════ -->
+<script src="script.js"></script>
+
+</body>
+</html>
